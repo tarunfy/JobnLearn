@@ -12,6 +12,7 @@ import {
   Button,
   Input,
   Textarea,
+  useToast,
 } from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
@@ -20,6 +21,8 @@ const AddPath = () => {
   const [tags, setTags] = useState("");
   const [headline, setHeadline] = useState("");
   const [path, setPath] = useState("");
+
+  const toast = useToast();
 
   const { addPath } = useContext(PathContext);
 
@@ -39,6 +42,13 @@ const AddPath = () => {
     setPath("");
     setTags("");
     onClose();
+    toast({
+      title: "Path added",
+      description: "We've added your path.",
+      status: "success",
+      duration: 3000,
+      isClosable: true,
+    });
   };
   return (
     <>

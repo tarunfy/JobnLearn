@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const ReviewCard = ({ review }) => {
   return (
-    <li className="px-5 py-3 border">
+    <li className="px-5 py-3 border rounded-md bg-white">
       <div className="flex items-center justify-between mb-2">
         <h1 className="text-3xl font-bold">{review.companyName}</h1>
         <p className="font-semibold">

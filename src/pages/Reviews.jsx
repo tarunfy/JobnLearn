@@ -15,7 +15,7 @@ const Reviews = () => {
         </div>
         {/* reviews */}
         {reviews?.length > 0 ? (
-          <ul className="w-full bg-white">
+          <ul className="w-full space-y-3">
             {reviews.map((review, index) => (
               <ReviewCard key={index} review={review} />
             ))}

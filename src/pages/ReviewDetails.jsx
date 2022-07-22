@@ -70,18 +70,18 @@ const ReviewDetails = () => {
       <div className="w-full space-y-2">
         <h1 className="text-3xl font-semibold mb-2">Comments</h1>
         {comments && comments?.length > 0 ? (
-          comments.map((comment, index) => (
+          comments?.map((comment, index) => (
             <div
               key={index}
               className="space-y-2 bg-white border p-4 rounded-md"
             >
               <div className="flex items-center w-full justify-between">
-                <h3 className="font-semibold text-lg">{comment.comment}</h3>
+                <h3 className="font-semibold text-lg">{comment?.comment}</h3>
                 <p>
                   {moment(comment?.timestamp.toDate()).startOf("ss").fromNow()}
                 </p>
               </div>
-              <p className="text-sm">~ {comment.commentedBy}</p>
+              <p className="text-sm">~ {comment?.commentedBy}</p>
             </div>
           ))
         ) : (

@@ -12,6 +12,7 @@ import {
   Button,
   Input,
   Textarea,
+  useToast,
 } from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
@@ -25,6 +26,8 @@ const CreateModal = () => {
   const [headline, setHeadline] = useState("");
   const [pros, setPros] = useState("");
   const [cons, setCons] = useState("");
+
+  const toast = useToast();
 
   const { addReview } = useContext(ReviewContext);
 
@@ -54,13 +57,20 @@ const CreateModal = () => {
     setCons("");
     setRating("");
     onClose();
+    toast({
+      title: "Review added",
+      description: "We've added your review.",
+      status: "success",
+      duration: 3000,
+      isClosable: true,
+    });
   };
   return (
     <>
       <Button
         disabled={!currentUser}
-        size="sm"
-        className="!rounded-sm !bg-green-500 hover:!bg-primary-600 text-zinc-50"
+        size="md"
+        className="!rounded-md !bg-green-500 hover:!bg-green-600 text-zinc-50"
         onClick={onOpen}
       >
         <AddIcon className="mr-2" /> Add Review

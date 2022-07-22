@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
-import { Button } from "@chakra-ui/react";
+import { Avatar, Button, Tooltip } from "@chakra-ui/react";
 
 const Navbar = () => {
   const { logout, currentUser } = useContext(AuthContext);
@@ -20,24 +20,28 @@ const Navbar = () => {
           JobnLearn
         </h1>
       </Link>
-      <div className="flex items-center space-x-2">
-        <Link to="/reviews">
-          <Button className="!bg-green-500 hover:!bg-green-600 !text-white/90">
-            Reviews
-          </Button>
-        </Link>
-        <Link to="/paths">
-          <Button className="!bg-green-500 hover:!bg-green-600 !text-white/90">
-            Paths
-          </Button>
-        </Link>
+      <div className="flex items-center space-x-4">
+        <div className="space-x-2">
+          <Link to="/reviews">
+            <Button className="!bg-green-500 hover:!bg-green-600 !text-white/90">
+              Reviews
+            </Button>
+          </Link>
+          <Link to="/paths">
+            <Button className="!bg-green-500 hover:!bg-green-600 !text-white/90">
+              Paths
+            </Button>
+          </Link>
+        </div>
         {currentUser && (
-          <Button
-            onClick={handleLogout}
-            className="!bg-transparent !border-[1px] !border-green-500 !text-green-500 hover:!text-green-600"
-          >
-            Logout
-          </Button>
+          <Tooltip hasArrow label="Logout" bg="black" color="white">
+            <Avatar
+              className="cursor-pointer"
+              name={currentUser.name}
+              src={currentUser?.profilePhoto}
+              onClick={handleLogout}
+            />
+          </Tooltip>
         )}
       </div>
     </div>

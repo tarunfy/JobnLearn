@@ -92,7 +92,6 @@ export const PathProvider = ({ children }) => {
       });
 
       setComments(data);
-      console.log(comments);
     } catch (err) {
       console.log(err.message);
     }

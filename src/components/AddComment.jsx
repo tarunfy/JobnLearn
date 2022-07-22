@@ -10,6 +10,7 @@ import {
   useDisclosure,
   Button,
   Input,
+  useToast,
 } from "@chakra-ui/react";
 import { ReviewContext } from "../contexts/ReviewContext";
 import { PathContext } from "../contexts/PathContext";
@@ -18,15 +19,24 @@ const AddComment = ({ id, type }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [comment, setComment] = useState("");
 
+  const toast = useToast();
+
   const { addComment } = useContext(
     type === "review" ? ReviewContext : PathContext
   );
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    onClose();
     await addComment(id, comment);
     setComment("");
+    onClose();
+    toast({
+      title: "Comment added",
+      description: "Comment has been added.",
+      status: "success",
+      duration: 3000,
+      isClosable: true,
+    });
   };
 
   return (
