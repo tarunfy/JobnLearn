@@ -3,6 +3,7 @@ import Home from "./pages/Home";
 import Reviews from "./pages/Reviews";
 import Path from "./pages/Path";
 import Navbar from "./components/Navbar";
+import ReviewDetails from "./pages/ReviewDetails";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route exact path="/paths" component={Path} />
 
         <Route exact path="/reviews" component={Reviews} />
+        <Route exact path="/reviews/:id" component={ReviewDetails} />
 
         <Route path="*" render={() => <Redirect to="/reviews" />} />
       </Switch>

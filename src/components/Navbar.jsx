@@ -14,7 +14,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="bg-slate-100 w-full flex items-center justify-between px-10 py-5">
+    <div className="bg-slate-100 border-b border-gray-700 w-full flex items-center justify-between px-10 py-5">
       <Link to="/">
         <h1 className="text-2xl font-bold underline decoration-wavy">
           JobnLearn

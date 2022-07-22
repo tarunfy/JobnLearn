@@ -5,6 +5,7 @@ import AddReview from "../components/AddReview";
 
 const Reviews = () => {
   const { reviews } = useContext(DataContext);
+
   return (
     <div className="bg-slate-50 h-screen w-full py-5 ">
       <div className="flex max-w-7xl flex-col items-center justify-between mx-auto space-y-10">
@@ -13,11 +14,15 @@ const Reviews = () => {
           <AddReview />
         </div>
         {/* reviews */}
-        <ul className="w-full bg-red-50">
-          {reviews.map((review, index) => (
-            <ReviewCard key={index} />
-          ))}
-        </ul>
+        {reviews?.length > 0 ? (
+          <ul className="w-full bg-white">
+            {reviews.map((review, index) => (
+              <ReviewCard key={index} review={review} />
+            ))}
+          </ul>
+        ) : (
+          <p className="text-center text-lg !mt-44">No reviews available...</p>
+        )}
       </div>
     </div>
   );
