@@ -49,7 +49,7 @@ const Path = () => {
         </div>
 
         {paths && paths?.length > 0 ? (
-          <ul className="w-full bg-white">
+          <ul className="w-full space-y-3">
             {paths.map((path, index) => (
               <PathCard key={index} path={path} />
             ))}

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const PathCard = ({ path }) => {
   return (
-    <li className="px-5 py-3 border space-y-6">
+    <li className="px-5 py-3 border space-y-6 bg-white rounded-md">
       <div className="flex items-center justify-between w-full space-y-3">
         <h1 className="text-3xl font-bold">{path.headline}</h1>
         <p className="font-semibold">

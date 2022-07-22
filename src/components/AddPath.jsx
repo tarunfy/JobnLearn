@@ -54,8 +54,8 @@ const AddPath = () => {
     <>
       <Button
         disabled={!currentUser}
-        size="sm"
-        className="!rounded-sm !bg-green-500 hover:!bg-primary-600 text-zinc-50"
+        size="md"
+        className="!rounded-md !bg-green-500  hover:!bg-primary-600 text-zinc-50"
         onClick={onOpen}
       >
         <AddIcon className="mr-2" /> Add Path
