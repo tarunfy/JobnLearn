@@ -32,7 +32,7 @@ const AddPath = () => {
     e.preventDefault();
     await addPath({
       headline,
-      tags: tags.trim().replace(/ /g, "").split(","),
+      tags: tags.trim().toLowerCase().replace(/ /g, "").split(","),
       path,
     });
     setHeadline("");

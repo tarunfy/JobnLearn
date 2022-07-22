@@ -12,17 +12,20 @@ import {
   Input,
 } from "@chakra-ui/react";
 import { ReviewContext } from "../contexts/ReviewContext";
+import { PathContext } from "../contexts/PathContext";
 
-const AddComment = ({ reviewId }) => {
+const AddComment = ({ id, type }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [comment, setComment] = useState("");
 
-  const { addComment } = useContext(ReviewContext);
+  const { addComment } = useContext(
+    type === "review" ? ReviewContext : PathContext
+  );
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     onClose();
-    await addComment(reviewId, comment);
+    await addComment(id, comment);
     setComment("");
   };
 

@@ -101,7 +101,7 @@ export const ReviewProvider = ({ children }) => {
           thickness="4px"
           speed="0.65s"
           emptyColor="gray.200"
-          color="green.600"
+          color="blue.500"
           size="xl"
         />
       </Center>

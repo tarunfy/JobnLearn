@@ -14,24 +14,6 @@ export const PathProvider = ({ children }) => {
     fetchPaths();
   }, []);
 
-  //const addReview = async (data) => {
-  //  setIsLoading(true);
-  //  let error;
-  //  try {
-  //    await db.collection("reviews").add({
-  //      ...data,
-  //      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-  //    });
-  //  } catch (err) {
-  //    error = err.message;
-  //  }
-  //  fetchReviews();
-  //  setIsLoading(false);
-  //  return {
-  //    error: error ? error : null,
-  //  };
-  //};
-
   const addPath = async (data) => {
     setIsLoading(true);
     let error;
@@ -68,68 +50,69 @@ export const PathProvider = ({ children }) => {
     setIsLoading(false);
   };
 
-  //const fetchReviews = async () => {
-  //  setIsLoading(true);
-  //  let data = [];
-  //  try {
-  //    const res = await db
-  //      .collection("reviews")
-  //      .orderBy("timestamp", "desc")
-  //      .get();
+  const fetchPath = async (pathId) => {
+    try {
+      const res = await db.collection("paths").doc(pathId).get();
+      const data = res.data();
+      return data;
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
 
-  //    res.docs.map((review) => {
-  //      data.push({ ...review.data(), reviewId: review.id });
-  //    });
-  //    setReviews(data);
-  //  } catch (err) {
-  //    console.log(err.message);
-  //  }
+  const addComment = async (pathId, comment) => {
+    try {
+      await db.collection("paths").doc(pathId).collection("comments").add({
+        comment,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      });
+      await fetchComments(pathId);
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
 
-  //  setIsLoading(false);
-  //};
+  const fetchComments = async (pathId) => {
+    let data = [];
+    try {
+      const res = await db
+        .collection("paths")
+        .doc(pathId)
+        .collection("comments")
+        .orderBy("timestamp", "desc")
+        .get();
 
-  //const fetchReview = async (reviewId) => {
-  //  try {
-  //    const res = await db.collection("reviews").doc(reviewId).get();
-  //    const data = res.data();
-  //    return data;
-  //  } catch (err) {
-  //    console.log(err.message);
-  //  }
-  //};
+      res.docs.map((comment) => {
+        data.push({ ...comment.data(), commentId: comment.id });
+      });
 
-  //const addComment = async (reviewId, comment) => {
-  //  try {
-  //    await db.collection("reviews").doc(reviewId).collection("comments").add({
-  //      comment,
-  //      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-  //    });
-  //    await fetchComments(reviewId);
-  //  } catch (err) {
-  //    console.log(err.message);
-  //  }
-  //};
+      setComments(data);
+      console.log(comments);
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
 
-  //const fetchComments = async (reviewId) => {
-  //  let data = [];
-  //  try {
-  //    const res = await db
-  //      .collection("reviews")
-  //      .doc(reviewId)
-  //      .collection("comments")
-  //      .orderBy("timestamp", "desc")
-  //      .get();
-
-  //    res.docs.map((comment) => {
-  //      data.push({ ...comment.data(), commentId: comment.id });
-  //    });
-
-  //    setComments(data);
-  //    console.log(comments);
-  //  } catch (err) {
-  //    console.log(err.message);
-  //  }
-  //};
+  const filterPaths = async (tagName) => {
+    setIsLoading(true);
+    let data = [];
+    try {
+      const res = await db
+        .collection("paths")
+        .orderBy("timestamp", "desc")
+        .get();
+      const filteredData = res.docs.filter((path) =>
+        path.data().tags.includes(tagName)
+      );
+      filteredData.map((path) =>
+        data.push({ ...path.data(), pathId: path.id })
+      );
+      setPaths(data);
+    } catch (err) {
+      console.log(err.message);
+    }
+    setIsLoading(false);
+  };
 
   if (isLoading)
     return (
@@ -138,7 +121,7 @@ export const PathProvider = ({ children }) => {
           thickness="4px"
           speed="0.65s"
           emptyColor="gray.200"
-          color="green.600"
+          color="blue.500"
           size="xl"
         />
       </Center>
@@ -149,6 +132,12 @@ export const PathProvider = ({ children }) => {
       value={{
         addPath,
         paths,
+        fetchPath,
+        comments,
+        fetchComments,
+        addComment,
+        filterPaths,
+        fetchPaths,
       }}
     >
       {!isLoading && children}

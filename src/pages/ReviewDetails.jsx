@@ -54,7 +54,7 @@ const ReviewDetails = () => {
         </span>
       </p>
       <div className="flex justify-end w-full">
-        <AddComment reviewId={id} />
+        <AddComment id={id} type="review" />
       </div>
 
       <div className="!mt-10 w-full">
