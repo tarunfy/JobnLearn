@@ -3,9 +3,9 @@ import { db } from "../utils/db";
 import { Center, Spinner } from "@chakra-ui/react";
 import firebase from "firebase";
 
-export const DataContext = createContext(null);
+export const ReviewContext = createContext(null);
 
-export const DataProvider = ({ children }) => {
+export const ReviewProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [reviews, setReviews] = useState(null);
   const [comments, setComments] = useState(null);
@@ -89,7 +89,6 @@ export const DataProvider = ({ children }) => {
       });
 
       setComments(data);
-      console.log(comments);
     } catch (err) {
       console.log(err.message);
     }
@@ -109,7 +108,7 @@ export const DataProvider = ({ children }) => {
     );
 
   return (
-    <DataContext.Provider
+    <ReviewContext.Provider
       value={{
         reviews,
         isLoading,
@@ -122,6 +121,6 @@ export const DataProvider = ({ children }) => {
       }}
     >
       {!isLoading && children}
-    </DataContext.Provider>
+    </ReviewContext.Provider>
   );
 };

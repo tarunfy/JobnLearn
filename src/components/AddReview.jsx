@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../contexts/AuthContext";
-import { DataContext } from "../contexts/DataContext";
+import { ReviewContext } from "../contexts/ReviewContext";
 import {
   Modal,
   ModalOverlay,
@@ -26,7 +26,7 @@ const CreateModal = () => {
   const [pros, setPros] = useState("");
   const [cons, setCons] = useState("");
 
-  const { addReview } = useContext(DataContext);
+  const { addReview } = useContext(ReviewContext);
 
   const { currentUser } = useContext(AuthContext);
 

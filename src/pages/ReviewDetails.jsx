@@ -1,13 +1,13 @@
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { DataContext } from "../contexts/DataContext";
+import { ReviewContext } from "../contexts/ReviewContext";
 import moment from "moment";
 import AddComment from "../components/AddComment";
 
 const ReviewDetails = () => {
   const [review, setReview] = useState(null);
 
-  const { fetchReview, comments, fetchComments } = useContext(DataContext);
+  const { fetchReview, comments, fetchComments } = useContext(ReviewContext);
   const { id } = useParams();
 
   useEffect(() => {

@@ -1,10 +1,10 @@
 import { useContext } from "react";
-import { DataContext } from "../contexts/DataContext";
-import ReviewCard from "../components/ReviewCard";
+import { ReviewContext } from "../contexts/ReviewContext";
 import AddReview from "../components/AddReview";
+import ReviewCard from "../components/ReviewCard";
 
 const Reviews = () => {
-  const { reviews } = useContext(DataContext);
+  const { reviews } = useContext(ReviewContext);
 
   return (
     <div className="bg-slate-50 h-screen w-full py-5 ">

@@ -11,13 +11,13 @@ import {
   Button,
   Input,
 } from "@chakra-ui/react";
-import { DataContext } from "../contexts/DataContext";
+import { ReviewContext } from "../contexts/ReviewContext";
 
 const AddComment = ({ reviewId }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [comment, setComment] = useState("");
 
-  const { addComment } = useContext(DataContext);
+  const { addComment } = useContext(ReviewContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
