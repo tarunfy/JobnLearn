@@ -1,7 +1,8 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, useContext } from "react";
 import { db } from "../utils/db";
 import { Center, Spinner } from "@chakra-ui/react";
 import firebase from "firebase";
+import { AuthContext } from "./AuthContext";
 
 export const PathContext = createContext(null);
 
@@ -9,6 +10,8 @@ export const PathProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [paths, setPaths] = useState(null);
   const [comments, setComments] = useState(null);
+
+  const { currentUser } = useContext(AuthContext);
 
   useEffect(() => {
     fetchPaths();
@@ -21,6 +24,7 @@ export const PathProvider = ({ children }) => {
       await db.collection("paths").add({
         ...data,
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        createdBy: currentUser.name,
       });
     } catch (err) {
       error = err.message;
@@ -63,6 +67,7 @@ export const PathProvider = ({ children }) => {
   const addComment = async (pathId, comment) => {
     try {
       await db.collection("paths").doc(pathId).collection("comments").add({
+        commentedBy: currentUser.name,
         comment,
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
       });

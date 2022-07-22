@@ -102,6 +102,7 @@ const CreateModal = () => {
                     required
                     className="font-semibold text-sm"
                     id="rating"
+                    type="number"
                   />
                 </div>
               </div>

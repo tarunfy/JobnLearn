@@ -1,7 +1,8 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, useContext } from "react";
 import { db } from "../utils/db";
 import { Center, Spinner } from "@chakra-ui/react";
 import firebase from "firebase";
+import { AuthContext } from "./AuthContext";
 
 export const ReviewContext = createContext(null);
 
@@ -9,6 +10,8 @@ export const ReviewProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [reviews, setReviews] = useState(null);
   const [comments, setComments] = useState(null);
+
+  const { currentUser } = useContext(AuthContext);
 
   useEffect(() => {
     fetchReviews();
@@ -65,6 +68,7 @@ export const ReviewProvider = ({ children }) => {
   const addComment = async (reviewId, comment) => {
     try {
       await db.collection("reviews").doc(reviewId).collection("comments").add({
+        commentedBy: currentUser.name,
         comment,
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
       });
