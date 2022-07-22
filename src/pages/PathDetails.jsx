@@ -57,7 +57,7 @@ const PathDetails = () => {
           <p>
             Created by ~{" "}
             <span className="font-semibold bg-yellow-200 text-black p-1">
-              {path.createdBy}
+              {path?.createdBy}
             </span>
           </p>
           <AddComment id={id} type="path" />
