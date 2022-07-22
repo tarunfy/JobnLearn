@@ -8,6 +8,7 @@ export const DataContext = createContext(null);
 export const DataProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [reviews, setReviews] = useState(null);
+  const [comments, setComments] = useState(null);
 
   useEffect(() => {
     fetchReviews();
@@ -51,6 +52,49 @@ export const DataProvider = ({ children }) => {
     setIsLoading(false);
   };
 
+  const fetchReview = async (reviewId) => {
+    try {
+      const res = await db.collection("reviews").doc(reviewId).get();
+      const data = res.data();
+      return data;
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
+
+  const addComment = async (reviewId, comment) => {
+    try {
+      await db.collection("reviews").doc(reviewId).collection("comments").add({
+        comment,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      });
+      await fetchComments(reviewId);
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
+
+  const fetchComments = async (reviewId) => {
+    let data = [];
+    try {
+      const res = await db
+        .collection("reviews")
+        .doc(reviewId)
+        .collection("comments")
+        .orderBy("timestamp", "desc")
+        .get();
+
+      res.docs.map((comment) => {
+        data.push({ ...comment.data(), commentId: comment.id });
+      });
+
+      setComments(data);
+      console.log(comments);
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
+
   if (isLoading)
     return (
       <Center h="100vh" w="100vw" bg="#f6f6f6">
@@ -66,9 +110,18 @@ export const DataProvider = ({ children }) => {
 
   return (
     <DataContext.Provider
-      value={{ reviews, isLoading, addReview, fetchReviews }}
+      value={{
+        reviews,
+        isLoading,
+        addReview,
+        fetchReviews,
+        fetchReview,
+        addComment,
+        fetchComments,
+        comments,
+      }}
     >
-      {children}
+      {!isLoading && children}
     </DataContext.Provider>
   );
 };

@@ -6,7 +6,7 @@ import GoogleImg from "../assets/google.svg";
 import { useHistory } from "react-router-dom";
 
 const Home = () => {
-  const { signin } = useContext(AuthContext);
+  const { signin, currentUser } = useContext(AuthContext);
 
   const history = useHistory();
 
@@ -28,7 +28,7 @@ const Home = () => {
             <h1 className="text-white font-semibold text-4xl mt-52">
               It's time to start living the life we've imagined.
             </h1>
-            <Button onClick={handleClick}>
+            <Button disabled={currentUser} onClick={handleClick}>
               <img src={GoogleImg} alt="google logo" className="h-5 w-5 mr-2" />{" "}
               Continue with google
             </Button>
