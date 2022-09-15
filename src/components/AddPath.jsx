@@ -46,7 +46,7 @@ const AddPath = () => {
       title: "Path added",
       description: "We've added your path.",
       status: "success",
-      duration: 3000,
+      duration: 2000,
       isClosable: true,
     });
   };
